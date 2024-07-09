@@ -9,7 +9,8 @@ project "assimp"
 
   defines {
       -- "SWIG",
-      "ASSIMP_BUILD_NO_OWN_ZLIB",
+      "ASSIMP_BUILD_ZLIB",
+      --"ASSIMP_BUILD_NO_OWN_ZLIB",
 
       "ASSIMP_BUILD_NO_X_IMPORTER",
       "ASSIMP_BUILD_NO_3DS_IMPORTER",
@@ -50,7 +51,7 @@ project "assimp"
       "ASSIMP_BUILD_NO_NDO_IMPORTER",
       "ASSIMP_BUILD_NO_IFC_IMPORTER",
       "ASSIMP_BUILD_NO_XGL_IMPORTER",
-      "ASSIMP_BUILD_NO_FBX_IMPORTER",
+      --"ASSIMP_BUILD_NO_FBX_IMPORTER",
       "ASSIMP_BUILD_NO_ASSBIN_IMPORTER",
       -- "ASSIMP_BUILD_NO_GLTF_IMPORTER",
       "ASSIMP_BUILD_NO_C4D_IMPORTER",
@@ -67,7 +68,7 @@ project "assimp"
       -- "ASSIMP_BUILD_NO_CALCTANGENTS_PROCESS",
       "ASSIMP_BUILD_NO_JOINVERTICES_PROCESS",
       -- "ASSIMP_BUILD_NO_TRIANGULATE_PROCESS",
-      "ASSIMP_BUILD_NO_GENFACENORMALS_PROCESS",
+      --"ASSIMP_BUILD_NO_GENFACENORMALS_PROCESS",
       -- "ASSIMP_BUILD_NO_GENVERTEXNORMALS_PROCESS",
       "ASSIMP_BUILD_NO_REMOVEVC_PROCESS",
       "ASSIMP_BUILD_NO_SPLITLARGEMESHES_PROCESS",
@@ -75,7 +76,7 @@ project "assimp"
       "ASSIMP_BUILD_NO_LIMITBONEWEIGHTS_PROCESS",
       -- "ASSIMP_BUILD_NO_VALIDATEDS_PROCESS",
       "ASSIMP_BUILD_NO_IMPROVECACHELOCALITY_PROCESS",
-      "ASSIMP_BUILD_NO_FIXINFACINGNORMALS_PROCESS",
+      --"ASSIMP_BUILD_NO_FIXINFACINGNORMALS_PROCESS",
       "ASSIMP_BUILD_NO_REMOVE_REDUNDANTMATERIALS_PROCESS",
       "ASSIMP_BUILD_NO_FINDINVALIDDATA_PROCESS",
       "ASSIMP_BUILD_NO_FINDDEGENERATES_PROCESS",
@@ -88,7 +89,7 @@ project "assimp"
       "ASSIMP_BUILD_NO_SPLITBYBONECOUNT_PROCESS",
       "ASSIMP_BUILD_NO_DEBONE_PROCESS",
       "ASSIMP_BUILD_NO_EMBEDTEXTURES_PROCESS",
-      "ASSIMP_BUILD_NO_GLOBALSCALE_PROCESS",
+      --"ASSIMP_BUILD_NO_GLOBALSCALE_PROCESS",
   }
 
   files {
@@ -106,6 +107,8 @@ project "assimp"
       "code/DefaultIOStream.cpp",
       "code/DefaultIOSystem.cpp",
       "code/DefaultLogger.cpp",
+      "code/FixNormalsStep.cpp",
+      "code/GenFaceNormalsProcess.cpp",
       "code/GenVertexNormalsProcess.cpp",
       "code/Importer.cpp",
       "code/ImporterRegistry.cpp",
@@ -125,6 +128,21 @@ project "assimp"
       "code/ObjFileImporter.cpp",
       "code/ObjFileMtlImporter.cpp",
       "code/ObjFileParser.cpp",
+      "code/FBXAnimation.cpp",
+      "code/FBXBinaryTokenizer.cpp",
+      "code/FBXConverter.cpp",
+      "code/FBXDeformer.cpp",
+      "code/FBXDocument.cpp",
+      "code/FBXDocumentUtil.cpp",
+      "code/FBXImporter.cpp",
+      "code/FBXMaterial.cpp",
+      "code/FBXMeshGeometry.cpp",
+      "code/FBXModel.cpp",
+      "code/FBXNodeAttribute.cpp",
+      "code/FBXParser.cpp",
+      "code/FBXProperties.cpp",
+      "code/FBXTokenizer.cpp",
+      "code/FBXUtil.cpp",
       "code/glTFImporter.cpp",
       "code/glTF2Importer.cpp",
       "code/MakeVerboseFormat.cpp",
@@ -132,6 +150,7 @@ project "assimp"
       "code/ScaleProcess.cpp",
       "code/EmbedTexturesProcess.cpp",
       "contrib/irrXML/*",
+      "contrib/zlib/*",
   }
 
   includedirs {
@@ -146,9 +165,16 @@ project "assimp"
       systemversion "latest"
 
    filter  "configurations:Debug"
-       runtime "Debug"
        symbols "on"
 
    filter  "configurations:Release"
-       runtime "Release"
+       optimize "on"
+
+    filter  "configurations:Debug-Editor"
+       symbols "on"
+
+    filter  "configurations:Release-Editor"
+       optimize "on"
+
+    filter  "configurations:Shipping"
        optimize "on"
