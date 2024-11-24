@@ -160,7 +160,7 @@ project "assimp"
       "contrib/rapidjson/include",
   }
 
-
+  -- Yes
    filter "system:windows"
       systemversion "latest"
 
